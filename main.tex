@@ -2,6 +2,7 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{tikz}
+\usepackage{amssymb}
 
 \title{Euklidischer Algorithmus}
 \subtitle{Proseminar ``Algorithms Unplugged''\\
@@ -39,7 +40,7 @@ Leibniz Universit\"at Hannover}
 	\frametitle{Einf\"uhrung}
     \framesubtitle{Was ist der Euklidische Algorithmus?}
     \begin{quote}
-    Der euklidische Algorithmus ist ein Algorithmus, mit dem sich der 		\underline{gr\"o{\ss}te gemeinsame Teiler} (\textit{g.g.T.}) 			zweier nat\"urlicher Zahlen berechnen l\"asst. 
+    Der euklidische Algorithmus ist ein Algorithmus, mit dem sich der 		\underline{gr\"o{\ss}te gemeinsame Teiler} (\textit{g.g.T.}) 			zweier nat\"urlicher\footnote{$\mathbb{N} =  \left\{ 1,2,3\dots \right\}$} Zahlen berechnen l\"asst. 
     
     \end{quote} 
 \end{frame}
@@ -54,10 +55,11 @@ Leibniz Universit\"at Hannover}
 
 \begin{frame}
 	\frametitle{Einf\"uhrung}
-    \framesubtitle{Wichtigkeit/Relevanz}
+    \framesubtitle{Anwendung/Relevanz}
     Der gr\"o{\ss}te Vorteil des Algorithmus ist das leichte \underline{Pr\"ufen auf Teilerfremdheit zweier Zahlen}. \\ Die Teilerfremdheit zweier Zahlen kann man alternativ durch das Vergleichen der Primfaktoren \"uberpr\"ufen. Die Bestimmung der Primfaktorzerlegung einer Zahl liegt aber in NP. \\ Andererseits l\"asst uns dieser Algorithmus schnell den \textit{g.g.T.} berechnen, ohne diese Zahlen faktorisieren zu m\"ussen. Ist der \textit{g.g.T.} gleich 1, dann sind die Zahlen teilerfremd.
     
 \end{frame}
+
 \section{Vorstellung der Algorithmen}
 \begin{frame}
 	\frametitle{Vorstellung der Algorithmen}
@@ -119,7 +121,44 @@ Leibniz Universit\"at Hannover}
 	
 	\end{tikzpicture}
 \end{frame}
+\begin{frame}
+	\frametitle{\textsc{LangsamEuklid}}
+	\framesubtitle{Beispiel}
+	Betrachte das folgende Beispiel mit $a=24, b=9$:\\
+	\vspace{5pt}
+	\begin{tabular}{|c|c|c|} \hline
+	& a & b \\ \hline
+	 & 24 & 9 \\ \hline
+	1 & 15 & 9 \\ \hline
+	2 & 6 & 9 \\ \hline
+	3 & 6 & 3 \\ \hline
+	4 & \textbf{3} & \textbf{3} \\ \hline \hline
+	\end{tabular}\\ \vspace{5pt}
+	$\therefore$ der \textit{g.g.T.} von 24 und 9 ist 3.
+\end{frame}
 
+\begin{frame}
+	\frametitle{\textsc{LangsamEuklid}}
+	\framesubtitle{Endlichkeit}
+	Ohne Einschr\"ankung nehmen wir an, dass $a > b$ und f\"uhren nur eine Iteration des Algorithmus aus.\\ Am Anfang ist die Differenz der Zahlen $a-b$. Nach dem Subtraktions- und Reduktionsschritt ist die neue Differenz betragsm\"assig $|(a-b)-b|=|a-2b|$. \\
+Mit der Dreiecksungleichung	bekommt man $|a-2b| \leq |a-b| + |b|$. Da $b\geq 1$, folgt $|a-2b| < |a-b|$
+	
+	\begin{quote}D.h. die Differenz wird in jedem Schritt betragsm\"assig kleiner.\end{quote} Da der Betrag der Differenz nach unten beschr\"ankt ist und streng monoton fallend ist, muss der Algorithmus nach h\"ochstens $|a-b|$ Iterationen terminieren.
+\end{frame}
+
+\begin{frame}
+	\frametitle{\textsc{LangsamEuklid}}
+	\framesubtitle{Korrektheit}
+	Ohne Einschr\"ankung sei $a>b$.\\
+	Wenn eine Zahl $a$ und $b$ teilt, dann teilt sie auch $a-b$. Umgekehrt teilt auch jede Zahl, die $a-b$ und $b$ teilt, auch die Summe $(a-b)+b=a$. \\D.h. die Menge der gemeinsamen Teiler von $a$ und $b$ ist gleich der Menge der gemeinsamen Teiler von $a-b$ und $b$. \\Da die Mengen gleich sind, haben sie auch das gleiche Minimum.\\\begin{quote}
+	$\therefore$ \textit{g.g.T.}$(a,b)$ = \textit{g.g.T.}$(a-b,b)$
+	\end{quote}
+Zudem liefert uns \textit{g.g.T.}$(a,a)$ = $a$ die Korrektheit.
+\end{frame}
+\begin{frame}
+	\frametitle{\textsc{LangsamEuklid}}
+	\framesubtitle{Verbesserungsvorschl\"age}
+\end{frame}
 \subsection{\textsc{Euklid}}
 \begin{frame}
 	\frametitle{\textsc{Euklid}}
