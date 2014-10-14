@@ -1,0 +1,179 @@
+\documentclass[•]{beamer}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+
+\title{Euklidischer Algorithmus}
+\subtitle{Proseminar ``Algorithms Unplugged''\\
+Wintersemester 2014/15\\ 
+Leibniz Universit\"at Hannover}
+\date{1. Dezember 2014}
+\author{Bharat Ahuja}
+
+\setbeamertemplate{navigation symbols}{}
+\defbeamertemplate{footline}{centered page number}
+{%
+  \hspace*{\fill}%
+  \hspace{2em}%
+  {\tiny \insertpagenumber}%
+  \hspace*{\fill}\vskip2pt%
+  \vspace{10pt}
+}
+\setbeamercolor{footline}{fg=blue}
+\setbeamerfont{footline}{series=\bfseries}
+\setbeamertemplate{footline}[centered page number]
+\setbeamersize{text margin left=32pt,text margin right=32pt}
+\setbeamertemplate{headline}{\vspace{5pt}}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}
+	\frametitle{Inhalte}
+	\tableofcontents[]
+\end{frame}
+
+\section{Einf\"uhrung}
+\begin{frame}
+	\frametitle{Einf\"uhrung}
+    \framesubtitle{Was ist der Euklidische Algorithmus?}
+    \begin{quote}
+    Der euklidische Algorithmus ist ein Algorithmus, mit dem sich der 		\underline{gr\"o{\ss}te gemeinsame Teiler} (\textit{g.g.T.}) 			zweier nat\"urlicher Zahlen berechnen l\"asst. 
+    
+    \end{quote} 
+\end{frame}
+
+\begin{frame}       
+	\frametitle{Einf\"uhrung}
+    \framesubtitle{Historische Entwicklung}
+    Diesen Algorithmus hat Euklid ca. 300 \textit{v.Chr.} in 				\textit{Buch VII -- Die Elemente} (Proposition 1 und 2) als einen 		geometrischen Algorithmus vorgestellt. 
+    
+    Euklid hat sp\"ater den Algorithmus erweitert, so dass man den 			\textit{g.g.T.} reeller Zahlen berechnen kann. Allerdings 				terminiert dieser erweiterte Algorithmus nicht f\"ur alle 				Eingaben.
+    \end{frame}
+
+\begin{frame}
+	\frametitle{Einf\"uhrung}
+    \framesubtitle{Wichtigkeit/Relevanz}
+    Der gr\"o{\ss}te Vorteil des Algorithmus ist das leichte \underline{Pr\"ufen auf Teilerfremdheit zweier Zahlen}. \\ Die Teilerfremdheit zweier Zahlen kann man alternativ durch das Vergleichen der Primfaktoren \"uberpr\"ufen. Die Bestimmung der Primfaktorzerlegung einer Zahl liegt aber in NP. \\ Andererseits l\"asst uns dieser Algorithmus schnell den \textit{g.g.T.} berechnen, ohne diese Zahlen faktorisieren zu m\"ussen. Ist der \textit{g.g.T.} gleich 1, dann sind die Zahlen teilerfremd.
+    
+\end{frame}
+\section{Vorstellung der Algorithmen}
+\begin{frame}
+	\frametitle{Vorstellung der Algorithmen}
+	Wir befassen uns mit zwei bekannten Varianten des euklidischen Algorithmus --
+	
+	\begin{itemize}
+	\item \textsc{LangsamEuklid}
+	\item \textsc{Euklid}
+	\end{itemize}
+\end{frame}
+
+%Code
+%Flow Chart
+%Beispiel
+%Korrektheit
+%Finiteness
+
+%LANGSAM spl - initially euclid
+%what we can learn, moving to euclid
+
+\subsection{\textsc{LangsamEuklid}}
+\begin{frame}
+	\frametitle{\textsc{LangsamEuklid}}
+	\underline{\textsc{LangsamEuklid}}
+	\begin{algorithmic}[1]
+\While {$a\neq b$}
+	\State Falls $a$ gr\"o{\ss}er ist als $b, a\gets a-b$
+	\State Falls $b$ gr\"o{\ss}er ist als $a, b\gets b-a$
+\EndWhile
+	\State Gib den gemeinsamen Wert der Zahlen aus
+\end{algorithmic}
+\end{frame}
+
+\begin{frame}
+	\frametitle{\textsc{LangsamEuklid}}
+	\begin{tikzpicture}
+
+	\draw [thick, ->] (0.3, 2) -- (0.3, 1);
+	\draw (0,1) -- (0,0) -- (2,0) -- (2,1) -- (0,1);
+	\node at (1, 0.5) {\scriptsize{$a=b?$}};
+	
+	\draw [->] (2,0.5) -- (4,0.5);
+	\node [above] at (3, 0.5) {\scriptsize{Nein}};
+	
+	\draw (4,1) -- (4,0) -- (6,0) -- (6,1) -- (4,1);
+	\node at (5, 0.5) {\scriptsize{$a>b?$}};
+	
+	\node [above] at (-0.75,0.5) {\scriptsize{Ja}};
+	\draw (0,0.5) -- (-1.5,0.5);
+	\draw [->] (-1.5,0.5) -- (-1.5, -1);
+
+	\draw (-3,-1) -- (-3, -2) -- (-1, -2) -- (-1, -1) -- (-3,-1);
+	\draw (-2.9,-1.1) -- (-2.9, -1.9) -- (-1.1, -1.9) -- (-1.1, -1.1) -- (-2.9,-1.1);
+	\node at (-2, -1.5) {\scriptsize{return $a$}};
+	
+	
+	\end{tikzpicture}
+\end{frame}
+
+\subsection{\textsc{Euklid}}
+\begin{frame}
+	\frametitle{\textsc{Euklid}}
+
+\underline{\textsc{Euklid}}
+	\begin{algorithmic}[1]
+		\State \textbf{if} $a < b$: vertausche a und b.
+		\While {$b>0$}
+		\State berechne $q,r$ mit $a=q\cdot b+r$, wobei $0\leq r < b$
+		\State $a\gets b, b\gets r$
+		\EndWhile
+		\State \textbf{return} $a$
+	\end{algorithmic}	
+	
+\end{frame}
+\begin{frame}
+	\frametitle{\textsc{Euklid}}
+
+		
+	\begin{tikzpicture}
+\draw [thick, ->] (1,2.5) -- (1,1.5);
+\draw (0,1.5) -- (0,0) -- (2,0) -- (2,1.5) -- (0,1.5);
+\node  [above] at (1,0.75) {\tiny{if $a< b$}};
+\node  [below] at (1,0.75) {\tiny{dann vertauschen}};
+
+\draw [->](2,0.75) -- (4,0.75);
+
+\draw (4,1.25) -- (4,0.25) -- (6,0.25) -- (6,1.25) -- (4,1.25);
+\node at (5,0.75) {\tiny{$b>0?$}};
+
+\draw [->] (6,0.75) -- (8,0.75);
+
+\node [above] at (7,0.75) {\tiny{Ja}};
+
+\draw (8,1.5) -- (8,0) -- (10,0) -- (10,1.5) -- (8,1.5);
+\node at (9,1.15) {\tiny{$a=q\cdot b+r$}};
+\node at (9,0.75) {\tiny{$0 \leq r < b$}};
+\node at (9,0.35) {\tiny{$a\gets b, b\gets r$}};
+
+\draw (9,0) -- (9,-1) -- (5,-1);
+\draw [->] (5,-1) -- (5,0.25);
+
+\draw [->] (5,1.25) -- (5,2.75);
+\node [right] at (5,2) {\tiny{Nein}};
+
+\draw (4,4) -- (4,2.75) -- (6,2.75) -- (6,4) -- (4,4);
+\draw (4.1,3.9) -- (4.1,2.85) -- (5.9,2.85) -- (5.9,3.9) -- (4.1,3.9);
+\node at (5,3.375) {\tiny{return $a$}};
+
+\end{tikzpicture}
+
+\end{frame}
+
+\section{Laufzeitanalyse}
+\begin{frame}
+	\frametitle{Laufzeitanalyse}
+	\end{frame}
+
+\end{document}
+
