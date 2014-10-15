@@ -4,6 +4,8 @@
 \usepackage{tikz}
 \usepackage{amssymb}
 
+\renewcommand{\tabcolsep}{1.2cm}
+
 \title{Euklidischer Algorithmus}
 \subtitle{Proseminar ``Algorithms Unplugged''\\
 Wintersemester 2014/15\\ 
@@ -77,12 +79,11 @@ Leibniz Universit\"at Hannover}
 %Korrektheit
 %Finiteness
 
-%LANGSAM spl - initially euclid
-%what we can learn, moving to euclid
-
 \subsection{\textsc{LangsamEuklid}}
 \begin{frame}
 	\frametitle{\textsc{LangsamEuklid}}
+	So hat Euklid den Algorithmus zuerst vorgestellt. Sein Algorithmus hat St\"abe zerlegt statt Zahlen zu subtrahieren.\\
+	\vspace{3pt}
 	\underline{\textsc{LangsamEuklid}}
 	\begin{algorithmic}[1]
 \While {$a\neq b$}
@@ -95,6 +96,8 @@ Leibniz Universit\"at Hannover}
 
 \begin{frame}
 	\frametitle{\textsc{LangsamEuklid}}
+	\begin{figure}
+	\centering
 	\begin{tikzpicture}
 
 	\draw [thick, ->] (0.3, 2) -- (0.3, 1);
@@ -117,9 +120,9 @@ Leibniz Universit\"at Hannover}
 	\draw (-3,-1) -- (-3, -2) -- (-1, -2) -- (-1, -1) -- (-3,-1);
 	\draw (-2.9,-1.1) -- (-2.9, -1.9) -- (-1.1, -1.9) -- (-1.1, -1.1) -- (-2.9,-1.1);
 	\node at (-2, -1.5) {\scriptsize{return $a$}};
-	
-	
 	\end{tikzpicture}
+	\caption{Flussdiagramm \textsc{LangsamEuklid}}
+	\end{figure}
 \end{frame}
 \begin{frame}
 	\frametitle{\textsc{LangsamEuklid}}
@@ -127,7 +130,7 @@ Leibniz Universit\"at Hannover}
 	Betrachte das folgende Beispiel mit $a=24, b=9$:\\
 	\vspace{5pt}
 	\begin{tabular}{|c|c|c|} \hline
-	& a & b \\ \hline
+	Schritt Nr.& a & b \\ \hline
 	 & 24 & 9 \\ \hline
 	1 & 15 & 9 \\ \hline
 	2 & 6 & 9 \\ \hline
@@ -140,17 +143,19 @@ Leibniz Universit\"at Hannover}
 \begin{frame}
 	\frametitle{\textsc{LangsamEuklid}}
 	\framesubtitle{Endlichkeit}
-	Ohne Einschr\"ankung nehmen wir an, dass $a > b$ und f\"uhren nur eine Iteration des Algorithmus aus.\\ Am Anfang ist die Differenz der Zahlen $a-b$. Nach dem Subtraktions- und Reduktionsschritt ist die neue Differenz betragsm\"assig $|(a-b)-b|=|a-2b|$. \\
-Mit der Dreiecksungleichung	bekommt man $|a-2b| \leq |a-b| + |b|$. Da $b\geq 1$, folgt $|a-2b| < |a-b|$
-	
-	\begin{quote}D.h. die Differenz wird in jedem Schritt betragsm\"assig kleiner.\end{quote} Da der Betrag der Differenz nach unten beschr\"ankt ist und streng monoton fallend ist, muss der Algorithmus nach h\"ochstens $|a-b|$ Iterationen terminieren.
+	Die Zahlen bleiben nat\"urlich beim Subtraktionsschritt, da man immer eine kleinere Zahl von einer gr\"o{\ss}eren Zahl abzieht. Insbesondere sind die beiden Zahlen mindestens 1.
+	\\Weil einer der beiden Variablen in jeder Iteration um mindestens 1 verringert wird, terminiert der Algorithmus nach maximal $a+b$ Schritten.
 \end{frame}
 
 \begin{frame}
 	\frametitle{\textsc{LangsamEuklid}}
 	\framesubtitle{Korrektheit}
-	Ohne Einschr\"ankung sei $a>b$.\\
-	Wenn eine Zahl $a$ und $b$ teilt, dann teilt sie auch $a-b$. Umgekehrt teilt auch jede Zahl, die $a-b$ und $b$ teilt, auch die Summe $(a-b)+b=a$. \\D.h. die Menge der gemeinsamen Teiler von $a$ und $b$ ist gleich der Menge der gemeinsamen Teiler von $a-b$ und $b$. \\Da die Mengen gleich sind, haben sie auch das gleiche Minimum.\\\begin{quote}
+	Ohne Einschr\"ankung sei $a>b$. Dann gelten --
+	\begin{enumerate}
+		\item $\forall t \in \mathbb{N}:t|a , t|b \Rightarrow t|(a-b)$
+		\item $\forall t \in \mathbb{N}:t|(a-b) , t|b \Rightarrow t|a$
+	\end{enumerate}
+	D.h. die Menge der gemeinsamen Teiler von $a$ und $b$ ist gleich der Menge der gemeinsamen Teiler von $a-b$ und $b$. \\Da die Mengen gleich sind, haben sie auch das gleiche Minimum.\\\begin{quote}
 	$\therefore$ \textit{g.g.T.}$(a,b)$ = \textit{g.g.T.}$(a-b,b)$
 	\end{quote}
 Zudem liefert uns \textit{g.g.T.}$(a,a)$ = $a$ die Korrektheit.
@@ -158,7 +163,15 @@ Zudem liefert uns \textit{g.g.T.}$(a,a)$ = $a$ die Korrektheit.
 \begin{frame}
 	\frametitle{\textsc{LangsamEuklid}}
 	\framesubtitle{Verbesserungsvorschl\"age}
+	Dieser Algorithmus endet zwar immer mit der richtigen L\"osung, aber er ist immerhin verbesserungsw\"urdig.
+	\begin{itemize}
+	\item Wenn eine Zahl sehr gro{\ss} ist, dann subtrahiert man die zweite Zahl mehrmals von der ersten ab.
+	\item z.B. $(1069,2) \rightarrow (1067,2) \rightarrow \dots (3,2) \rightarrow (1,2) \rightarrow (1,1)$
+	\item Hier braucht man nicht \"uberpr\"ufen welche der beiden Zahlen gr\"o{\ss}er ist.
+	\end{itemize}
+	Diese Idee hat man implementiert und so ergibt sich der moderne euklidische Algorithmus.
 \end{frame}
+
 \subsection{\textsc{Euklid}}
 \begin{frame}
 	\frametitle{\textsc{Euklid}}
@@ -177,7 +190,8 @@ Zudem liefert uns \textit{g.g.T.}$(a,a)$ = $a$ die Korrektheit.
 \begin{frame}
 	\frametitle{\textsc{Euklid}}
 
-		
+	\begin{figure}
+	\centering
 	\begin{tikzpicture}
 \draw [thick, ->] (1,2.5) -- (1,1.5);
 \draw (0,1.5) -- (0,0) -- (2,0) -- (2,1.5) -- (0,1.5);
@@ -209,12 +223,42 @@ Zudem liefert uns \textit{g.g.T.}$(a,a)$ = $a$ die Korrektheit.
 \node at (5,3.375) {\tiny{return $a$}};
 
 \end{tikzpicture}
-
+\caption{Flussdiagramm \textsc{Euklid}}
+\end{figure}
 \end{frame}
+
+\begin{frame}
+\frametitle{\textsc{Euklid}}
+\framesubtitle{Endlichkeit}
+In jeder Iteration gilt nach Schritt 3 des Algorithmus stets $0 \leq r < b$.
+\vspace{5pt}
+\\Wenn $r=0$ gilt, dann endet der Algorithmus. \\Aber wenn $r \neq 0$, dann sinkt der Wert von $b$ nach Schritt 4 in dieser Iteration, und der Algorithmus wird weiter ausgef\"uhrt. \\Diese Folge von positiven streng monoton fallenden Werten von $b$ muss terminieren. \\D.h. nach endlich vielen Iterationen muss $r=0$ sein, und dann terminiert der Algorithmus.
+\end{frame}
+
+\begin{frame}
+	\frametitle{\textsc{Euklid}}
+	\framesubtitle{Korrektheit}
+	Analog zum \textsc{LangsamEuklid} Algorithmus gilt die Gleichheit der Mengen der gemeinsamen Teiler von $(a,b)$ und $(a - q \cdot b, b)$.
+	$\Rightarrow$ \textit{g.g.T.}$(a,b)$ = \textit{g.g.T.}$(a-q\cdot b, b)$
+\end{frame}
+
 
 \section{Laufzeitanalyse}
 \begin{frame}
 	\frametitle{Laufzeitanalyse}
+	\begin{itemize}
+	\item Sei $T_{b}$ die durchschnittliche Anzahl an Iterationen des euklidischen Algorithmus, wenn der Parameter $b$ festliegt \"uber alle $a \in \mathbb{N}$.
+	\item Nach der ersten Iteration ist immer nur der Divisionsrest relevant. Deswegen m\"usste $T_{b}$ f\"ur alle $b \in \mathbb{N}$ existieren und l\"asst sich als Durchschnitt \"uber die Anzahl an Iterationen bei $a=1, a=2, \dots ,a=b$ berechnen.
+	\item Beispiel. Im Durchschnitt muss man 2.6 Iterationen ausf\"uhren wenn man eine nat\"urliche Zahl auf Teilerfremdheit mit 5 \"uberpr\"ufen will, denn $T_5 = \frac{2+3+4+3+1}{5} = 2.6$.
+	\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
+	\frametitle{Laufzeitanalyse}
+	\begin{itemize}
+	\item Sei umgekehrt $U_{a}$ die durchschnittliche Anzahl an Iterationen des euklidischen Algorithmus, wenn der Parameter $a$ festliegt \"uber alle $b \in \mathbb{N}$.
+	\item Dann gilt $b \leq a$ nur in endlich vielen F\"allen. Ansonsten werden immer die Zahlen in der ersten Iteration getauscht. Danach ist die Anzahl der Iterationen identisch wie oben. Dann muss $U_a = T_a + 1$ gelten.
+	\end{itemize}
 	\end{frame}
 
 \end{document}
