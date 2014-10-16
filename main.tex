@@ -1,4 +1,5 @@
 \documentclass[•]{beamer}
+\usepackage{amsmath}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{tikz}
@@ -50,10 +51,9 @@ Leibniz Universit\"at Hannover}
 \begin{frame}       
 	\frametitle{Einf\"uhrung}
     \framesubtitle{Historische Entwicklung}
-    Diesen Algorithmus hat Euklid ca. 300 \textit{v.Chr.} in 				\textit{Buch VII -- Die Elemente} (Proposition 1 und 2) als einen 		geometrischen Algorithmus vorgestellt. 
+    Diesen Algorithmus hat Euklid ca. 300 \textit{v.Chr.} in 				\textit{Buch VII -- Die Elemente} (Proposition 1 und 2) als einen 		geometrischen Algorithmus vorgestellt. Allerdings hat er diesen Algorithmus wahrscheinlich nicht erfunden.
     
-    Euklid hat sp\"ater den Algorithmus erweitert, so dass man den 			\textit{g.g.T.} reeller Zahlen berechnen kann. Allerdings 				terminiert dieser erweiterte Algorithmus nicht f\"ur alle 				Eingaben.
-    \end{frame}
+    Euklid hat sp\"ater einen erweiterten (nicht immer endlichen) Algorithmus angegeben, so dass man den \textit{g.g.T.} reeller Zahlen berechnen kann.\end{frame}
 
 \begin{frame}
 	\frametitle{Einf\"uhrung}
@@ -130,7 +130,7 @@ Leibniz Universit\"at Hannover}
 	Betrachte das folgende Beispiel mit $a=24, b=9$:\\
 	\vspace{5pt}
 	\begin{tabular}{|c|c|c|} \hline
-	Schritt Nr.& a & b \\ \hline
+	Iteration Nr.& a & b \\ \hline
 	 & 24 & 9 \\ \hline
 	1 & 15 & 9 \\ \hline
 	2 & 6 & 9 \\ \hline
@@ -143,7 +143,7 @@ Leibniz Universit\"at Hannover}
 \begin{frame}
 	\frametitle{\textsc{LangsamEuklid}}
 	\framesubtitle{Endlichkeit}
-	Die Zahlen bleiben nat\"urlich beim Subtraktionsschritt, da man immer eine kleinere Zahl von einer gr\"o{\ss}eren Zahl abzieht. Insbesondere sind die beiden Zahlen mindestens 1.
+	Die Zahlen bleiben positiv und ganzzahlig beim Subtraktionsschritt, da man immer eine kleinere Zahl von einer gr\"o{\ss}eren Zahl abzieht. D.h. die beiden Zahlen sind mindestens 1.
 	\\Weil einer der beiden Variablen in jeder Iteration um mindestens 1 verringert wird, terminiert der Algorithmus nach maximal $a+b$ Schritten.
 \end{frame}
 
@@ -156,9 +156,10 @@ Leibniz Universit\"at Hannover}
 		\item $\forall t \in \mathbb{N}:t|(a-b) , t|b \Rightarrow t|a$
 	\end{enumerate}
 	D.h. die Menge der gemeinsamen Teiler von $a$ und $b$ ist gleich der Menge der gemeinsamen Teiler von $a-b$ und $b$. \\Da die Mengen gleich sind, haben sie auch das gleiche Minimum.\\\begin{quote}
-	$\therefore$ \textit{g.g.T.}$(a,b)$ = \textit{g.g.T.}$(a-b,b)$
+	$\therefore$ \textit{g.g.T.}$(a,b)$ = \textit{g.g.T.}$(a-b,b)$\\
+	Eine Iteration des Algorithmus \"andert die L\"osung nicht.
 	\end{quote}
-Zudem liefert uns \textit{g.g.T.}$(a,a)$ = $a$ die Korrektheit.
+Zudem liefert uns \textit{g.g.T.}$(a,a)$ = $a$ die Korrektheit. \qed
 \end{frame}
 \begin{frame}
 	\frametitle{\textsc{LangsamEuklid}}
@@ -167,7 +168,7 @@ Zudem liefert uns \textit{g.g.T.}$(a,a)$ = $a$ die Korrektheit.
 	\begin{itemize}
 	\item Wenn eine Zahl sehr gro{\ss} ist, dann subtrahiert man die zweite Zahl mehrmals von der ersten ab.
 	\item z.B. $(1069,2) \rightarrow (1067,2) \rightarrow \dots (3,2) \rightarrow (1,2) \rightarrow (1,1)$
-	\item Hier braucht man nicht \"uberpr\"ufen welche der beiden Zahlen gr\"o{\ss}er ist.
+	\item In den meisten Iterationen braucht man nicht \"uberpr\"ufen welche der beiden Zahlen gr\"o{\ss}er ist.
 	\end{itemize}
 	Diese Idee hat man implementiert und so ergibt sich der moderne euklidische Algorithmus.
 \end{frame}
@@ -178,7 +179,7 @@ Zudem liefert uns \textit{g.g.T.}$(a,a)$ = $a$ die Korrektheit.
 
 \underline{\textsc{Euklid}}
 	\begin{algorithmic}[1]
-		\State \textbf{if} $a < b$: vertausche a und b.
+		\State \textbf{if} $a < b$: vertausche a und b. \Comment \textit{Optimierung}\footnote{\scriptsize{Reduziert die Laufzeit um eine Iteration in 50\% der F\"alle. Ohne diesen Schritt w\"urde der erste Durchlauf automatisch die Zahlen tauschen, falls $a<b$.}}
 		\While {$b>0$}
 		\State berechne $q,r$ mit $a=q\cdot b+r$, wobei $0\leq r < b$
 		\State $a\gets b, b\gets r$
@@ -232,34 +233,111 @@ Zudem liefert uns \textit{g.g.T.}$(a,a)$ = $a$ die Korrektheit.
 \framesubtitle{Endlichkeit}
 In jeder Iteration gilt nach Schritt 3 des Algorithmus stets $0 \leq r < b$.
 \vspace{5pt}
-\\Wenn $r=0$ gilt, dann endet der Algorithmus. \\Aber wenn $r \neq 0$, dann sinkt der Wert von $b$ nach Schritt 4 in dieser Iteration, und der Algorithmus wird weiter ausgef\"uhrt. \\Diese Folge von positiven streng monoton fallenden Werten von $b$ muss terminieren. \\D.h. nach endlich vielen Iterationen muss $r=0$ sein, und dann terminiert der Algorithmus.
+\\Wenn $r=0$ gilt, dann endet der Algorithmus. \\Aber wenn $r \neq 0$, dann sinkt der Wert von $b$ nach Schritt 4 in dieser Iteration, und der Algorithmus wird weiter ausgef\"uhrt. \\Diese Folge von positiven streng monoton fallenden Werten von $b$ muss terminieren. \\ \qed
 \end{frame}
 
 \begin{frame}
 	\frametitle{\textsc{Euklid}}
 	\framesubtitle{Korrektheit}
-	Analog zum \textsc{LangsamEuklid} Algorithmus gilt die Gleichheit der Mengen der gemeinsamen Teiler von $(a,b)$ und $(a - q \cdot b, b)$.
-	$\Rightarrow$ \textit{g.g.T.}$(a,b)$ = \textit{g.g.T.}$(a-q\cdot b, b)$
+	Analog zum \textsc{LangsamEuklid} Algorithmus gilt die Gleichheit der Mengen der gemeinsamen Teiler von $(a,b)$ und $(a - q \cdot b, b)$. \\
+	$$\Rightarrow \textit{g.g.T.}(a,b) = \textit{g.g.T.}(a-q\cdot b, b)$$ \\ \qed
 \end{frame}
 
 
 \section{Laufzeitanalyse}
+
 \begin{frame}
 	\frametitle{Laufzeitanalyse}
+	\framesubtitle{\textsc{Euklid vs. LangsamEuklid}}
+	Sei ohne Einschr\"ankung $a>b$.\\ Im ersten Durchlauf gilt --
+	
+	\begin{equation}a = q \cdot b + r \text{, mit } r < b
+	\end{equation}
+	 Au{\ss}erdem gilt -- \\ \begin{equation}a \geq b + r\text{, denn }q \geq 1\end{equation} \\
+	 Aus $(1), (2)$ folgt\footnote{denn $a \geq b + r > r + r = 2r$} $$r < \frac{a}{2}$$ \\
+\end{frame}	
+\begin{frame}
+	\frametitle{Laufzeitanalyse}
+	\framesubtitle{\textsc{Euklid vs. LangsamEuklid}}
+	Wegen der Reduktion\footnote{$a \gets b, b \gets r$} sind die Variablen $a,b$ nach 2 Iterationen beide h\"ochstens halb so gro{\ss} wie der \underline{Anfangswert} von $a$. \\ \vspace{15pt}
+	Durch Induktion sind nach $2 \cdot k$ Iterationen die beiden Variablen h\"ochstens so gro{\ss} wie $\cfrac{a}{2^k}$ .\\ \vspace{15pt}
+	Wenn $k > \log_{2}a$, dann sind beide Variablen null. Aber der Algorithmus muss schon vorher terminieren, wenn $b=0$.\\ \vspace{10pt} Von daher ist $2 \cdot \log_{2}a$ eine obere Schranke f\"ur die Anzahl der Durchl\"aufe, die viel besser als $a+b$ ist.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Laufzeitanalyse}
+	\framesubtitle{\textsc{Euklid}}
 	\begin{itemize}
 	\item Sei $T_{b}$ die durchschnittliche Anzahl an Iterationen des euklidischen Algorithmus, wenn der Parameter $b$ festliegt \"uber alle $a \in \mathbb{N}$.
-	\item Nach der ersten Iteration ist immer nur der Divisionsrest relevant. Deswegen m\"usste $T_{b}$ f\"ur alle $b \in \mathbb{N}$ existieren und l\"asst sich als Durchschnitt \"uber die Anzahl an Iterationen bei $a=1, a=2, \dots ,a=b$ berechnen.
-	\item Beispiel. Im Durchschnitt muss man 2.6 Iterationen ausf\"uhren wenn man eine nat\"urliche Zahl auf Teilerfremdheit mit 5 \"uberpr\"ufen will, denn $T_5 = \frac{2+3+4+3+1}{5} = 2.6$.
+	\item Nach der ersten Iteration ist immer nur der Divisionsrest relevant. Deswegen m\"usste $T_{b}$ f\"ur alle $b \in \mathbb{N}$ existieren und l\"asst sich als Durchschnitt \"uber die Anzahl an Iterationen bei $a=1, a=2, \dots ,a=b$ berechnen.\footnote{\scriptsize{Ohne die Zahlen vorher zu vertauschen nat\"urlich!}}
+	$$\therefore T_{b} = \frac{1}{b} \sum_{0 < k\leq b} T(k,b)$$
 	\end{itemize}
 	\end{frame}
+
+\begin{frame}	
+		\frametitle{Laufzeitanalyse}
+	\framesubtitle{\textsc{Euklid} : Beispiel $T_5$}
+	
+	$T_5 = \frac{(T(1,5) + T(2,5) \dots T(5,5))}{5}$\\
+	Zum Beispiel $T(2,5) = 3$, denn
+	\setcounter{equation}{0}
+	\begin{align}
+	2&=0\cdot 5 + 1	\\
+	5&=2\cdot 2 + 1 \\
+	2&= 2\cdot 1+0
+	\end{align}
+		Im Durchschnitt muss man 2.6 Iterationen ausf\"uhren wenn man eine nat\"urliche Zahl auf Teilerfremdheit mit 5 \"uberpr\"ufen will, denn $T_5 = \frac{2+3+4+3+1}{5} = 2.6$.
+	\end{frame}
+
+	\begin{frame}	
+		\frametitle{Laufzeitanalyse}
+	\framesubtitle{\textsc{Euklid} : Absch\"atzung von $T_b$}
+	F\"ur gro{\ss}e $b \in \mathbb{N}$ gilt
+	$$T_b \approx 1 + \frac{1}{b} (T_0 + T_1 \dots T_{b-1})$$ da nach der ersten Iteration von $T(k,b)$ ungef\"ahr $T_{k}$ Iterationen noch bleiben.\footnote{\scriptsize{Hier hat man also $b$ durch eine zuf\"allige Zahl modulo $k$ gesch\"atzt.}}\\
+	\begin{align*}
+	k&=0\cdot b + k\\
+	b&=q_{2}\cdot k + r_2\\
+	&\vdots
+\end{align*}		
+	 $ \text{D.h. }T_b \approx S_b \text{, wobei }$ $$S_0 := 0, S_n := 1 + \frac{1}{n} (S_0 + S_1 \dots + S_{n-1})$$
+\end{frame}		
+
+\begin{frame}
+\frametitle{Laufzeitanalyse}
+	\framesubtitle{\textsc{Euklid}}
+Die Rekursion l\"asst sich folgenderweise l\"osen.
+	\begin{align*}
+	S_{n+1} &= 1 + \frac{1}{n+1}(S_0 + S_1 \dots + S_n)\\
+	&= 1 + \frac{1}{n+1}(n(S_n - 1) + S_n)\\
+	&= S_n + \frac{1}{n+1}
+	\end{align*}
+	$\Rightarrow S_n = H_n = 1 + \frac{1}{2} + \dots \frac{1}{n} \Rightarrow T_b \approx \ln b + O(1)$ \\
+	Aus der Praxis hat sich ergeben, dass diese Sch\"atzung von $T_b$ eher pessimistisch ist, und dass diese Funktion etwas langsamer w\"achst.
+\end{frame}
 	
 	\begin{frame}
 	\frametitle{Laufzeitanalyse}
+	\framesubtitle{\textsc{Euklid}}
 	\begin{itemize}
 	\item Sei umgekehrt $U_{a}$ die durchschnittliche Anzahl an Iterationen des euklidischen Algorithmus, wenn der Parameter $a$ festliegt \"uber alle $b \in \mathbb{N}$.
 	\item Dann gilt $b \leq a$ nur in endlich vielen F\"allen. Ansonsten werden immer die Zahlen in der ersten Iteration getauscht. Danach ist die Anzahl der Iterationen identisch wie oben. Dann muss $U_a = T_a + 1$ gelten.
 	\end{itemize}
 	\end{frame}
+	
+	\begin{frame}
+	\frametitle{Laufzeitanalyse}
+	\framesubtitle{\textsc{Euklid}}
+
+	Betrachte die Fibonacci-Zahlen --
+	\begin{align*}
+ f_{n+1} &= 1 \cdot f_{n} + f_{n-1} \\
+ f_{n} &= 1 \cdot f_{n-1} + f_{n-2} \\
+ &\vdots \\
+ f_{2} &= 1 \cdot f_{1} + 0 \\
+ f_{1} &= 1
+\end{align*}
+Im Euklidischen Algorithmus werden die Reste umso schneller klein, je gr\"o{\ss}er die Quotienten sind. Im Fall der Fibonacci Zahlen, nehmen die Quotienten alle den kleinstm\"oglichen Wert an. \\Deswegen ist dieser der ung\"unstigste Fall.
+\end{frame}	
 
 \end{document}
 
