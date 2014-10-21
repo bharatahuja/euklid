@@ -4,6 +4,8 @@
 \usepackage{algpseudocode}
 \usepackage{tikz}
 \usepackage{amssymb}
+\usepackage{caption}
+\usepackage{graphicx}
 
 \renewcommand{\tabcolsep}{1.2cm}
 
@@ -38,28 +40,111 @@ Leibniz Universit\"at Hannover}
 %	\tableofcontents
 %\end{frame}
 
-\section{Einf\"uhrung}
 \begin{frame}
-	\frametitle{Einf\"uhrung}
-    \framesubtitle{Was ist der Euklidische Algorithmus?}
-    \begin{quote}
-    Der euklidische Algorithmus ist ein Algorithmus, mit dem sich der 		\underline{gr\"o{\ss}te gemeinsame Teiler} (\textit{g.g.T.}) zweier nat\"urlicher\footnote{$\mathbb{N} =  \left\{ 1,2,3\dots \right\}$} Zahlen berechnen l\"asst. 
-    
-    \end{quote} 
+	\frametitle{Problem 1: Software Projekt}
+	\framesubtitle{Bestimmung der Anzahl von Teams}
+	
+	\begin{figure}
+	\centering
+	\includegraphics[scale=0.20]{Organisation}
+	\caption*{\scriptsize{Quelle: SE-Webseite (Stand 21. Oktober 2014)}}
+	\end{figure}
+	
+\end{frame}
+	
+	
+\begin{frame}
+	\frametitle{Software Projekt}
+	\framesubtitle{Die Problemstellung}
+	\begin{itemize}
+		\item 60 Inf., 24 Math., 24 Tech. Inf.
+		\item Alle Teams sind gleich gro{\ss}.
+		\item Alle Studenten m\"ussen einem Team zugeordnet sein.
+		\item Gleichm\"a{\ss}ige Verteilung der Studieng\"ange in jedem Team.
+		\item M\"oglichst gro{\ss}e Anzahl von Teams.
+		\end{itemize}
 \end{frame}
 
-\begin{frame}       
-	\frametitle{Einf\"uhrung}
-    \framesubtitle{Historische Entwicklung}
-    Diesen Algorithmus hat Euklid ca. 300 \textit{v.Chr.} in 				\textit{Buch VII -- Die Elemente} (Proposition 1 und 2) als einen 		geometrischen Algorithmus vorgestellt. Allerdings hat er diesen Algorithmus wahrscheinlich nicht erfunden.
-    
-    Euklid hat sp\"ater einen erweiterten (nicht immer endlichen) Algorithmus angegeben, so dass man den \textit{g.g.T.} reeller Zahlen berechnen kann.\end{frame}
+\begin{frame}
+	\frametitle{Software Projekt}
+%	\framesubtitle{Der 1. Schritt zur L\"osung}
+	Sei $n \in \mathbb{N}$ die Anzahl der Teams.
+	\begin{align*}
+	\Rightarrow n|60 \text{, } n|24 \text{ und } n|24 \tag{i}\\
+	\end{align*}
+	Wir suchen nach der gr\"o{\ss}ten Zahl $n$, die $(i)$ erf\"ullt.
+	
+	\begin{align*}
+	\Rightarrow n = \textit{ggT}(60,24,24) = 12 \text{ Teams}\\
+	\end{align*}
+	
+\end{frame}
 
 \begin{frame}
-	\frametitle{Einf\"uhrung}
-    \framesubtitle{Anwendung/Relevanz}
-    Der gr\"o{\ss}te Vorteil des Algorithmus ist das leichte \underline{Pr\"ufen auf Teilerfremdheit zweier Zahlen}. \\ Die Teilerfremdheit zweier Zahlen kann man alternativ durch das Vergleichen der Primfaktoren \"uberpr\"ufen. Die Bestimmung der Primfaktorzerlegung einer Zahl liegt aber in NP. \\ Andererseits l\"asst uns dieser Algorithmus schnell den \textit{g.g.T.} berechnen, ohne diese Zahlen faktorisieren zu m\"ussen. Ist der \textit{g.g.T.} gleich 1, dann sind die Zahlen teilerfremd.
-    
+	\frametitle{Software Projekt}
+	\framesubtitle{L\"osungsanalyse}
+	Es gibt 12 Teams mit jeweils  --\\
+	\begin{itemize}
+	\item 9 Studenten
+	\item 5 Informatik Studenten
+	\item 2 Mathematik Studenten
+	\item 2 Technische-Informatik Studenten
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}
+	\centering
+	\includegraphics[scale=0.4]{cicada}
+	\caption*{\scriptsize{Quelle: Wikipedia (Stand 21. Oktober 2014)}}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Problem 2: Periodische Zikaden}
+    \framesubtitle{Nat\"urliche Selektion}
+    \begin{itemize}
+    \item Zikaden treten alle 13 oder 17 Jahre in Massen auf.
+    \item Ihre Feinde leben in 2-, 4- oder 6-Jahres-Rhythmen
+    \item So k\"onnen sie den meisten Raubtieren ausweichen.
+    \item So kann man auch sp\"ater Arbeit ausweichen.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Periodische Zikaden}
+	\framesubtitle{\"Uberlebensstrategie}
+\begin{itemize}
+\item $\textit{ggT}(4,13) = 1$
+\item Teilerfremdheit durch Vergleich der Primfaktoren.
+\item Die Zikaden berechnen schnell den \textit{g.g.T.}, ohne Zahlen zu faktorisieren.
+\item Abstrakter: Man will schnell Zahlen auf Teilerfremdheit pr\"ufen k\"onnen.
+\end{itemize}
+%Die Bestimmung der Primfaktorzerlegung einer Zahl liegt aber in NP.
+\end{frame}
+
+\begin{frame}
+\frametitle{Von der Problemstellung abstrahieren}
+\begin{quote}
+		Wie kann man den \textit{g.g.T.} schnell bestimmen?
+	\end{quote}
+	\begin{itemize}
+	\item Euklidischer Algorithmus
+	\item Binary GCD Algorithm von Stein
+	\item GCD Algorithm von Lehmer
+	\end{itemize}
+\end{frame}
+
+\section{Einf\"uhrung}
+
+\begin{frame}       
+	\frametitle{Euklidischer Algorithmus}
+    \framesubtitle{Historische Entwicklung}
+    \begin{itemize}
+    \item  ca. 300 \textit{v.Chr.} in \textit{Buch VII -- Die Elemente} vorgestellt.
+    \item Wahrscheinlich nicht selbst erfunden.
+    \item Als geometrischen Algorithmus vorgestellt. St\"abe zerlegt.
+    \end{itemize}
 \end{frame}
 
 \section{Vorstellung der Algorithmen}
@@ -82,8 +167,6 @@ Leibniz Universit\"at Hannover}
 \subsection{\textsc{LangsamEuklid}}
 \begin{frame}
 	\frametitle{\textsc{LangsamEuklid}}
-	So hat Euklid den Algorithmus zuerst vorgestellt. Sein Algorithmus hat St\"abe zerlegt statt Zahlen zu subtrahieren.\\
-	\vspace{3pt}
 	\underline{\textsc{LangsamEuklid}}
 	\begin{algorithmic}[1]
 \While {$a\neq b$}
@@ -143,34 +226,32 @@ Leibniz Universit\"at Hannover}
 \begin{frame}
 	\frametitle{\textsc{LangsamEuklid}}
 	\framesubtitle{Endlichkeit}
-	Die Zahlen bleiben positiv und ganzzahlig beim Subtraktionsschritt, da man immer eine kleinere Zahl von einer gr\"o{\ss}eren Zahl abzieht. D.h. die beiden Zahlen sind mindestens 1.
-	\\Weil einer der beiden Variablen in jeder Iteration um mindestens 1 verringert wird, terminiert der Algorithmus nach maximal $a+b$ Schritten.
+	\begin{itemize}
+	\item Die Zahlen bleiben positiv und ganzzahlig beim Subtraktionsschritt.
+	\item Einer der beiden Variablen wird in jeder Iteration um mindestens 1 
+verringert.
+	\item D.h. der Algorithmus terminiert nach maximal $a+b$ Schritten.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{\textsc{LangsamEuklid}}
 	\framesubtitle{Korrektheit}
-	Ohne Einschr\"ankung sei $a>b$. Dann gelten --
-	\begin{enumerate}
-		\item $\forall t \in \mathbb{N}:t|a , t|b \Rightarrow t|(a-b)$
-		\item $\forall t \in \mathbb{N}:t|(a-b) , t|b \Rightarrow t|a$
-	\end{enumerate}
-	D.h. die Menge der gemeinsamen Teiler von $a$ und $b$ ist gleich der Menge der gemeinsamen Teiler von $a-b$ und $b$. \\Da die Mengen gleich sind, haben sie auch das gleiche Minimum.\\\begin{quote}
-	$\therefore$ \textit{g.g.T.}$(a,b)$ = \textit{g.g.T.}$(a-b,b)$\\
-	Eine Iteration des Algorithmus \"andert die L\"osung nicht.
-	\end{quote}
-Zudem liefert uns \textit{g.g.T.}$(a,a)$ = $a$ die Korrektheit. \qed
+	\begin{itemize}
+	\item Die Menge der gemeinsamen Teiler von $a$ und $b$ ist gleich der Menge der gemeinsamen Teiler von $a-b$ und $b$.\\
+	 $\therefore$ \textit{g.g.T.}$(a,b)$ = \textit{g.g.T.}$(a-b,b)$
+	\item Eine Iteration des Algorithmus \"andert die L\"osung nicht.
+	\item \textit{g.g.T.}$(a,a)$ = $a$
+	\end{itemize}
+\qed
 \end{frame}
 \begin{frame}
 	\frametitle{\textsc{LangsamEuklid}}
 	\framesubtitle{Verbesserungsvorschl\"age}
-	Dieser Algorithmus endet zwar immer mit der richtigen L\"osung, aber er ist immerhin verbesserungsw\"urdig.
 	\begin{itemize}
-	\item Wenn eine Zahl sehr gro{\ss} ist, dann subtrahiert man die zweite Zahl mehrmals von der ersten ab.
-	\item z.B. $(1069,2) \rightarrow (1067,2) \rightarrow \dots (3,2) \rightarrow (1,2) \rightarrow (1,1)$
+	\item $(1069,2) \rightarrow (1067,2) \rightarrow \dots (3,2) \rightarrow (1,2) \rightarrow (1,1)$
 	\item In den meisten Iterationen braucht man nicht \"uberpr\"ufen welche der beiden Zahlen gr\"o{\ss}er ist.
 	\end{itemize}
-	Diese Idee hat man implementiert und so ergibt sich der moderne euklidische Algorithmus.
 \end{frame}
 
 \subsection{\textsc{Euklid}}
@@ -179,7 +260,7 @@ Zudem liefert uns \textit{g.g.T.}$(a,a)$ = $a$ die Korrektheit. \qed
 
 \underline{\textsc{Euklid}}
 	\begin{algorithmic}[1]
-		\State \textbf{if} $a < b$: vertausche a und b. \Comment \textit{Optimierung}\footnote{\scriptsize{Reduziert die Laufzeit um eine Iteration in 50\% der F\"alle. Ohne diesen Schritt w\"urde der erste Durchlauf automatisch die Zahlen tauschen, falls $a<b$.}}
+		\State \textbf{if} $a < b$: vertausche a und b.
 		\While {$b>0$}
 		\State berechne $q,r$ mit $a=q\cdot b+r$, wobei $0\leq r < b$
 		\State $a\gets b, b\gets r$
@@ -227,22 +308,6 @@ Zudem liefert uns \textit{g.g.T.}$(a,a)$ = $a$ die Korrektheit. \qed
 \caption{Flussdiagramm \textsc{Euklid}}
 \end{figure}
 \end{frame}
-
-\begin{frame}
-\frametitle{\textsc{Euklid}}
-\framesubtitle{Endlichkeit}
-In jeder Iteration gilt nach Schritt 3 des Algorithmus stets $0 \leq r < b$.
-\vspace{5pt}
-\\Wenn $r=0$ gilt, dann endet der Algorithmus. \\Aber wenn $r \neq 0$, dann sinkt der Wert von $b$ nach Schritt 4 in dieser Iteration, und der Algorithmus wird weiter ausgef\"uhrt. \\Diese Folge von positiven streng monoton fallenden Werten von $b$ muss terminieren. \\ \qed
-\end{frame}
-
-\begin{frame}
-	\frametitle{\textsc{Euklid}}
-	\framesubtitle{Korrektheit}
-	Analog zum \textsc{LangsamEuklid} Algorithmus gilt die Gleichheit der Mengen der gemeinsamen Teiler von $(a,b)$ und $(a - q \cdot b, b)$. \\
-	$$\Rightarrow \textit{g.g.T.}(a,b) = \textit{g.g.T.}(a-q\cdot b, b)$$ \\ \qed
-\end{frame}
-
 
 \section{Laufzeitanalyse}
 
