@@ -117,8 +117,7 @@ Leibniz Universit\"at Hannover}
 \begin{itemize}
 \item $\textit{ggT}(4,13) = 1$
 \item Teilerfremdheit durch Vergleich der Primfaktoren.
-\item Die Zikaden berechnen schnell den \textit{g.g.T.}, ohne Zahlen zu faktorisieren.
-\item Abstrakter: Man will schnell Zahlen auf Teilerfremdheit pr\"ufen k\"onnen.
+\item Schnell Zahlen auf Teilerfremdheit pr\"ufen, ohne zu faktorisieren.
 \end{itemize}
 %Die Bestimmung der Primfaktorzerlegung einer Zahl liegt aber in NP.
 \end{frame}
@@ -238,9 +237,7 @@ verringert.
 	\frametitle{\textsc{LangsamEuklid}}
 	\framesubtitle{Korrektheit}
 	\begin{itemize}
-	\item Die Menge der gemeinsamen Teiler von $a$ und $b$ ist gleich der Menge der gemeinsamen Teiler von $a-b$ und $b$.\\
-	 $\therefore$ \textit{g.g.T.}$(a,b)$ = \textit{g.g.T.}$(a-b,b)$
-	\item Eine Iteration des Algorithmus \"andert die L\"osung nicht.
+	\item \textit{g.g.T.}$(a,b)$ = \textit{g.g.T.}$(a-b,b)$
 	\item \textit{g.g.T.}$(a,a)$ = $a$
 	\end{itemize}
 \qed
@@ -319,79 +316,107 @@ verringert.
 	
 	\begin{equation}a = q \cdot b + r \text{, mit } r < b
 	\end{equation}
-	 Au{\ss}erdem gilt -- \\ \begin{equation}a \geq b + r\text{, denn }q \geq 1\end{equation} \\
-	 Aus $(1), (2)$ folgt\footnote{denn $a \geq b + r > r + r = 2r$} $$r < \frac{a}{2}$$ \\
+	 Au{\ss}erdem gilt -- \\ \begin{equation}a \geq b + r \end{equation} \\
+	 Aus $(1), (2)$ folgt $$r < \frac{a}{2}$$ \\
 \end{frame}	
 \begin{frame}
 	\frametitle{Laufzeitanalyse}
 	\framesubtitle{\textsc{Euklid vs. LangsamEuklid}}
-	Wegen der Reduktion\footnote{$a \gets b, b \gets r$} sind die Variablen $a,b$ nach 2 Iterationen beide h\"ochstens halb so gro{\ss} wie der \underline{Anfangswert} von $a$. \\ \vspace{15pt}
-	Durch Induktion sind nach $2 \cdot k$ Iterationen die beiden Variablen h\"ochstens so gro{\ss} wie $\cfrac{a}{2^k}$ .\\ \vspace{15pt}
-	Wenn $k > \log_{2}a$, dann sind beide Variablen null. Aber der Algorithmus muss schon vorher terminieren, wenn $b=0$.\\ \vspace{10pt} Von daher ist $2 \cdot \log_{2}a$ eine obere Schranke f\"ur die Anzahl der Durchl\"aufe, die viel besser als $a+b$ ist.
+	\begin{itemize}
+	\item Nach 2 Iterationen sind die Variablen $a,b$ h\"ochstens halb so gro{\ss} wie der \underline{Anfangswert} von $a$. \vspace{15pt}
+	\item Nach $2 \cdot k$ Iterationen sind die Variablen h\"ochstens so gro{\ss} wie $\cfrac{a}{2^k}$ \vspace{15pt} .	
+	\item $k \leq \log_{2}a$
+	\item $2\cdot \log_{2}a$ besser als $a+b$
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Laufzeitanalyse}
+	\frametitle{Durchschnittslaufzeit}
 	\framesubtitle{\textsc{Euklid}}
 	\begin{itemize}
-	\item Sei $T_{b}$ die durchschnittliche Anzahl an Iterationen des euklidischen Algorithmus, wenn der Parameter $b$ festliegt \"uber alle $a \in \mathbb{N}$.
-	\item Nach der ersten Iteration ist immer nur der Divisionsrest relevant. Deswegen m\"usste $T_{b}$ f\"ur alle $b \in \mathbb{N}$ existieren und l\"asst sich als Durchschnitt \"uber die Anzahl an Iterationen bei $a=1, a=2, \dots ,a=b$ berechnen.\footnote{\scriptsize{Ohne die Zahlen vorher zu vertauschen nat\"urlich!}}
+	\item Sei $T_{b}$ die durchschnittliche Anzahl an Iterationen des euklidischen Algorithmus \"uber alle $a \in \mathbb{N}$, wenn der Parameter $b$ bekannt ist.
+	\item Nach der ersten Iteration ist immer nur der Divisionsrest relevant.
 	$$\therefore T_{b} = \frac{1}{b} \sum_{0 < k\leq b} T(k,b)$$
 	\end{itemize}
 	\end{frame}
 
 \begin{frame}	
-		\frametitle{Laufzeitanalyse}
+		\frametitle{Durchschnittslaufzeit}
 	\framesubtitle{\textsc{Euklid} : Beispiel $T_5$}
-	
-	$T_5 = \frac{(T(1,5) + T(2,5) \dots T(5,5))}{5}$\\
-	Zum Beispiel $T(2,5) = 3$, denn
+$$T_5 = \frac{1}{5}\cdot (T(1,5) + T(2,5) \dots T(5,5))$$	
+	\begin{itemize}
+	\item $T(1,5) = T(6,5) = \dots = 2$
 	\setcounter{equation}{0}
 	\begin{align}
-	2&=0\cdot 5 + 1	\\
+	1&=0\cdot 5 + 1	\\
+	5&=5\cdot 1 + 0
+	\end{align}
+	
+	\setcounter{equation}{0}
+	\item $T(2,5) = T(7,5) = \dots = 3$
+	\begin{align}
+	2&=0\cdot 5 + 2	\\
 	5&=2\cdot 2 + 1 \\
 	2&= 2\cdot 1+0
 	\end{align}
-		Im Durchschnitt muss man 2.6 Iterationen ausf\"uhren wenn man eine nat\"urliche Zahl auf Teilerfremdheit mit 5 \"uberpr\"ufen will, denn $T_5 = \frac{2+3+4+3+1}{5} = 2.6$.
+	\end{itemize}
+	
 	\end{frame}
+	
+
+\begin{frame}	
+		\frametitle{Durchschnittslaufzeit}
+	\framesubtitle{\textsc{Euklid} : Beispiel $T_5$}
+	Analog-
+	\begin{itemize}
+	\item $T(3,5) = T(8,5) = \dots = 4$
+	\item $T(4,5) = T(9,5) = \dots = 3$
+	\item $T(5,5) = T(10,5) = \dots = 1$
+	\end{itemize}
+	 $$\Rightarrow T_5 = \frac{2+3+4+3+1}{5} = 2.6\text{ Iterationen}$$
+	\end{frame}	
+	
+	
 
 	\begin{frame}	
-		\frametitle{Laufzeitanalyse}
+		\frametitle{Durchschnittslaufzeit}
 	\framesubtitle{\textsc{Euklid} : Absch\"atzung von $T_b$}
 	F\"ur gro{\ss}e $b \in \mathbb{N}$ gilt
-	$$T_b \approx 1 + \frac{1}{b} (T_0 + T_1 \dots T_{b-1})$$ da nach der ersten Iteration von $T(k,b)$ ungef\"ahr $T_{k}$ Iterationen noch bleiben.\footnote{\scriptsize{Hier hat man also $b$ durch eine zuf\"allige Zahl modulo $k$ gesch\"atzt.}}\\
+	\begin{itemize}
+	\item Nach der ersten Iteration von $T(k,b)$ bleiben ungef\"ahr $T_{k}$ Iterationen.
 	\begin{align*}
 	k&=0\cdot b + k\\
 	b&=q_{2}\cdot k + r_2\\
 	&\vdots
 \end{align*}		
-	 $ \text{D.h. }T_b \approx S_b \text{, wobei }$ $$S_0 := 0, S_n := 1 + \frac{1}{n} (S_0 + S_1 \dots + S_{n-1})$$
+	\item $T_b \approx 1 + \frac{1}{b} (T_0 + T_1 \dots T_{b-1})$
+	\end{itemize}
 \end{frame}		
 
 \begin{frame}
-\frametitle{Laufzeitanalyse}
+\frametitle{Durchschnittslaufzeit}
 	\framesubtitle{\textsc{Euklid}}
-Die Rekursion l\"asst sich folgenderweise l\"osen.
+	
+	$ \text{D.h. }T_b \approx S_b \text{, wobei }$ $$S_0 := 0, S_n := 1 + \frac{1}{n} (S_0 + S_1 \dots + S_{n-1})$$
 	\begin{align*}
-	S_{n+1} &= 1 + \frac{1}{n+1}(S_0 + S_1 \dots + S_n)\\
-	&= 1 + \frac{1}{n+1}(n(S_n - 1) + S_n)\\
-	&= S_n + \frac{1}{n+1}
+	\Rightarrow S_{n+1} &= 1 + \frac{1}{n+1}(S_0 + S_1 \dots + S_n)\\
 	\end{align*}
-	$\Rightarrow S_n = H_n = 1 + \frac{1}{2} + \dots \frac{1}{n} \Rightarrow T_b \approx \ln b + O(1)$ \\
-	Aus der Praxis hat sich ergeben, dass diese Sch\"atzung von $T_b$ eher pessimistisch ist, und dass diese Funktion etwas langsamer w\"achst.
+	
+\end{frame}
+
+\begin{frame}
+\frametitle{Durchschnittslaufzeit}
+	\framesubtitle{\textsc{Euklid}}
+\begin{align*}
+&= 1 + \frac{1}{n+1}(n(S_n - 1) + S_n)\\
+	&\Rightarrow S_{n+1}= S_n + \frac{1}{n+1}
+\end{align*}
+$$\therefore S_n = H_n = 1 + \frac{1}{2} + \dots \frac{1}{n}$$ $$ \Rightarrow T_b \approx \ln b + O(1)\text{\tiny{ (pessimistisch)}}$$
+
 \end{frame}
 	
 	\begin{frame}
-	\frametitle{Laufzeitanalyse}
-	\framesubtitle{\textsc{Euklid}}
-	\begin{itemize}
-	\item Sei umgekehrt $U_{a}$ die durchschnittliche Anzahl an Iterationen des euklidischen Algorithmus, wenn der Parameter $a$ festliegt \"uber alle $b \in \mathbb{N}$.
-	\item Dann gilt $b \leq a$ nur in endlich vielen F\"allen. Ansonsten werden immer die Zahlen in der ersten Iteration getauscht. Danach ist die Anzahl der Iterationen identisch wie oben. Dann muss $U_a = T_a + 1$ gelten.
-	\end{itemize}
-	\end{frame}
-	
-	\begin{frame}
-	\frametitle{Laufzeitanalyse}
+	\frametitle{Worst-Case}
 	\framesubtitle{\textsc{Euklid}}
 
 	Betrachte die Fibonacci-Zahlen --
@@ -402,8 +427,27 @@ Die Rekursion l\"asst sich folgenderweise l\"osen.
  f_{2} &= 1 \cdot f_{1} + 0 \\
  f_{1} &= 1
 \end{align*}
-Im Euklidischen Algorithmus werden die Reste umso schneller klein, je gr\"o{\ss}er die Quotienten sind. Im Fall der Fibonacci Zahlen, nehmen die Quotienten alle den kleinstm\"oglichen Wert an. \\Deswegen ist dieser der ung\"unstigste Fall.
 \end{frame}	
+
+\begin{frame}
+\frametitle{Weiterf\"uhrende Literatur}
+\begin{itemize}
+\item \textit{The Art of Computer Programming: Band 1} Kap. 1.1.2
+\item \textit{The Art of Computer Programming: Band 2} Kap. 4.5.2
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Zusammenfassung}
+\begin{itemize}
+\item Euklidischer Algorithmus berechnet den \textit{g.g.T} zweier Zahlen.
+\item Teilerfremdheit mit Primfaktorzerlegung ineffizient.
+\item Laufzeit von \textsc{LangsamEuklid} abh\"angig von Zahlen.
+\item Laufzeit von \textsc{Euklid} abh\"angig von der Anzahl der Ziffern der Zahlen.
+\item Nach der 1. Iteration ist nur der Rest der Division von Bedeutung.
+\item Fibonacci-Zahlen bilden das Worst-Case Szenario.
+\end{itemize}
+\end{frame}
 
 \end{document}
 
