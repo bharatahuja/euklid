@@ -1,0 +1,6 @@
+\beamer@endinputifotherversion {3.32pt}
+\beamer@sectionintoc {1}{Einf\"uhrung}{10}{0}{1}
+\beamer@sectionintoc {2}{Vorstellung der Algorithmen}{11}{0}{2}
+\beamer@subsectionintoc {2}{1}{\textsc {LangsamEuklid}}{12}{0}{2}
+\beamer@subsectionintoc {2}{2}{\textsc {Euklid}}{18}{0}{2}
+\beamer@sectionintoc {3}{Laufzeitanalyse}{21}{0}{3}
