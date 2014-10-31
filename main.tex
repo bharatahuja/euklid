@@ -117,7 +117,6 @@ Leibniz Universit\"at Hannover}
     \item Treten alle 13 oder 17 Jahre in Massen auf.
     \item Feinde leben in 2-, 4- oder 6-Jahres-Rhythmen
     \item K\"onnen sie den meisten Raubtieren ausweichen.
-    \item Sp\"ater Arbeit ausweichen.
     \end{itemize}
 \end{frame}
 
@@ -126,6 +125,7 @@ Leibniz Universit\"at Hannover}
 	\framesubtitle{\"Uberlebensstrategie}
 \begin{itemize}
 \item $\textit{ggT}(4,13) = 1$
+ \item Sp\"ater Arbeit ausweichen.
 \item Teilerfremdheit durch Vergleich der Primfaktoren.
 \item Schnell Zahlen auf Teilerfremdheit pr\"ufen, ohne zu faktorisieren.
 \end{itemize}
@@ -369,13 +369,17 @@ verringert.
 \begin{frame}
 	\frametitle{Durchschnittslaufzeit}
 	\framesubtitle{\textsc{Euklid}}
-	\begin{itemize}
-	\item Sei $T_{b}$ die durchschnittliche Anzahl an Iterationen des euklidischen Algorithmus \"uber alle $a \in \mathbb{N}$, wenn der Parameter $b$ bekannt ist.
-	\item Nach der ersten Iteration ist immer nur der Divisionsrest relevant.
-	$$\therefore T_{b} = \frac{1}{b} \sum_{0 < k\leq b} T(k,b)$$
-	\end{itemize}
+	Wenn $b$ feststeht und $a$ \"uber alle nat\"urlichen Zahlen variiert, wieviele Durchl\"aufe gibt es im Schnitt?\vspace{10pt}
+	\begin{quote}
+	Sei $T_{b}$ die durchschnittliche Anzahl an Iterationen des euklidischen Algorithmus \"uber alle $a \in \mathbb{N}$, wenn der Parameter $b$ konstant ist.
+	\end{quote}
 	\end{frame}
-
+\begin{frame}
+\frametitle{$T_b$ berechnen}
+ Nach der ersten Iteration ist immer nur der Divisionsrest relevant.
+	$$\therefore T_{b} = \frac{1}{b} \sum_{0 < k\leq b} T(k,b)$$
+	\textit{ wobei $T(a,b)$ die Anzahl der Iterationen bei Eingaben $a$ und $b$ ist.}
+\end{frame}
 \begin{frame}	
 		\frametitle{Durchschnittslaufzeit}
 	\framesubtitle{\textsc{Euklid} : Beispiel $T_5$}
