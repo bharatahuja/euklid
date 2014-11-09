@@ -366,21 +366,35 @@ verringert.
 	\framesubtitle{\textsc{Euklid}}
 	Wenn $b$ feststeht und $a$ \"uber alle nat\"urlichen Zahlen variiert, wieviele Durchl\"aufe gibt es im Schnitt?\vspace{10pt}
 	\begin{quote}
-	Sei $T_{b}$ die durchschnittliche Anzahl an Iterationen des euklidischen Algorithmus \"uber alle $a \in \mathbb{N}$, wenn der Parameter $b$ konstant ist.
+	Sei $T_{b}$ diese durchschnittliche Anzahl.
 	\end{quote}
 	\end{frame}
 \begin{frame}
 \frametitle{$T_b$ berechnen}
- Nach der ersten Iteration ist immer nur der Divisionsrest relevant.
-	$$\therefore T_{b} = \frac{1}{b} \sum_{0 < k\leq b} T(k,b)$$
-	\textit{ wobei $T(a,b)$ die Anzahl der Iterationen bei Eingaben $a$ und $b$ ist.}
+ Nach der ersten Iteration ist immer nur der Divisionsrest relevant.\vspace*{10pt}
+ \begin{center}
+ \begin{tabular}{|c|c|} \hline
+ $T(3,5) = 4$ & $T(718,5) = 4$  \\ \hline
+ 	& \\
+	$3=0\cdot 5 + 3$ & $718=143\cdot 5 + 3$ \\
+	& \\
+	$5=1\cdot 3 + 2$ & $5=1\cdot 3 + 2$ \\
+	$3=1\cdot 2 + 1$ & $3=1\cdot 2 + 1$ \\
+	$2=1\cdot 1 + 0$ & $2=1\cdot 1 + 0$ \\ \hline
+	 \end{tabular}
+	  \end{center}
 \end{frame}
+\begin{frame}
+\frametitle{$T_b$ berechnen}
+	$$\therefore T_{b} = \frac{1}{b} \sum_{0 < k\leq b} T(k,b)$$
+	\end{frame}
+
 \begin{frame}	
 		\frametitle{Durchschnittslaufzeit}
 	\framesubtitle{\textsc{Euklid} : Beispiel $T_5$}
 $$T_5 = \frac{1}{5}\cdot (T(1,5) + T(2,5) \dots +T(5,5))$$	
 	\begin{itemize}
-	\item $T(1,5) = T(6,5) = \dots = 2$
+	\item $T(1,5) = 2$
 	\setcounter{equation}{0}
 	\begin{align}
 	1&=0\cdot 5 + 1	\\
@@ -388,7 +402,7 @@ $$T_5 = \frac{1}{5}\cdot (T(1,5) + T(2,5) \dots +T(5,5))$$
 	\end{align}
 	
 	\setcounter{equation}{0}
-	\item $T(2,5) = T(7,5) = \dots = 3$
+	\item $T(2,5) = 3$
 	\begin{align}
 	2&=0\cdot 5 + 2	\\
 	5&=2\cdot 2 + 1 \\
@@ -411,8 +425,6 @@ $$T_5 = \frac{1}{5}\cdot (T(1,5) + T(2,5) \dots +T(5,5))$$
 	\vspace{20pt}
 	 $$\Rightarrow T_5 = \frac{2+3+4+3+1}{5} = 2.6\text{ Iterationen}$$
 	\end{frame}	
-	
-	
 
 	\begin{frame}	
 		\frametitle{Durchschnittslaufzeit}
@@ -431,24 +443,8 @@ $$T_5 = \frac{1}{5}\cdot (T(1,5) + T(2,5) \dots +T(5,5))$$
 
 \begin{frame}
 \frametitle{Durchschnittslaufzeit}
-	\framesubtitle{\textsc{Euklid}}
-	
-	$ \text{D.h. }T_b \approx S_b \text{, wobei }$ $$S_0 := 0, S_n := 1 + \frac{1}{n} (S_0 + S_1 \dots + S_{n-1})$$
-	\begin{align*}
-	\Rightarrow S_{n+1} &= 1 + \frac{1}{n+1}(S_0 + S_1 \dots + S_{n-1}+ S_n)\\
-	\end{align*}
-	
-\end{frame}
-
-\begin{frame}
-\frametitle{Durchschnittslaufzeit}
-	\framesubtitle{\textsc{Euklid}}
-\begin{align*}
-&= 1 + \frac{1}{n+1}(n\cdot (S_n - 1) + S_n)\\
-	&\Rightarrow S_{n+1}= S_n + \frac{1}{n+1}
-\end{align*}
-$$\therefore S_n = H_n = 1 + \frac{1}{2} + \dots +\frac{1}{n}$$ $$ \Rightarrow T_b \approx \ln b + O(1)\text{\tiny{ (pessimistisch)}}$$
-
+\framesubtitle{\textsc{Euklid} : Absch\"atzung von $T_b$}
+$$ \Rightarrow T_b \approx \ln b + O(1)\text{\tiny{ (pessimistisch)}}$$
 \end{frame}
 
 \begin{frame}
@@ -469,6 +465,26 @@ $$\therefore S_n = H_n = 1 + \frac{1}{2} + \dots +\frac{1}{n}$$ $$ \Rightarrow T
 \item Nach der 1. Iteration ist nur der Divisionsrest relevant.
 \item Fibonacci-Zahlen bilden das Worst-Case Szenario.
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Anhang}
+	Beweis:\\
+	$ T_b \approx S_b \text{, wobei }$ $$S_0 := 0, S_n := 1 + \frac{1}{n} (S_0 + S_1 \dots + S_{n-1})$$
+	\begin{align*}
+	\Rightarrow S_{n+1} &= 1 + \frac{1}{n+1}(S_0 + S_1 \dots + S_{n-1}+ S_n)\\
+	\end{align*}
+	
+\end{frame}
+
+\begin{frame}
+\frametitle{Anhang}
+\begin{align*}
+&= 1 + \frac{1}{n+1}(n\cdot (S_n - 1) + S_n)\\
+	&\Rightarrow S_{n+1}= S_n + \frac{1}{n+1}
+\end{align*}
+$$\therefore S_n = H_n = 1 + \frac{1}{2} + \dots +\frac{1}{n}$$ $$ \Rightarrow T_b \approx \ln b + O(1)$$
+
 \end{frame}
 
 \end{document}
