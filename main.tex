@@ -444,7 +444,19 @@ $$T_5 = \frac{1}{5}\cdot (T(1,5) + T(2,5) \dots +T(5,5))$$
 \begin{frame}
 \frametitle{Durchschnittslaufzeit}
 \framesubtitle{\textsc{Euklid} : Absch\"atzung von $T_b$}
-$$ \Rightarrow T_b \approx \ln b + O(1)\text{\tiny{ (pessimistisch)}}$$
+$$ \Rightarrow T_b \approx H_b = \ln b + O(1)$$
+ \begin{center}
+ \begin{tabular}{|c|c|} \hline
+ $T_{100} = 4.56$ & $H_{100} \approx 5.18$ \\ \hline
+ $T_{1000} = 6.422$ & $H_{1000} \approx 7.49$ \\
+  \hline
+ $T_{10^6} = 12.2$ & $H_{10^6} \approx 14.4$ \\ \hline
+  $T_{10^8} = 16.07$ & $H_{10^8} \approx 18.99$ \\ \hline
+    $T_{10^9} = 18.01$ & $H_{10^9} \approx 21.3$ \\ \hline
+  
+	 \end{tabular}
+	  \end{center}
+
 \end{frame}
 
 \begin{frame}
