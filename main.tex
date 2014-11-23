@@ -22,7 +22,7 @@ Leibniz Universit\"at Hannover}
 {%
   \hspace*{\fill}%
   \hspace{2em}%
-  {\scriptsize \insertpagenumber}%
+  {\scriptsize \insertframenumber}%
   \hspace*{\fill}\vskip2pt%
   \vspace{10pt}
 }
@@ -68,8 +68,11 @@ Leibniz Universit\"at Hannover}
 	\frametitle{Software Projekt}
 	\framesubtitle{Die Problemstellung}
 	\begin{itemize}
+	\pause 
 		\item 60 Inf., 24 Math., 24 Tech. Inf.
+		\pause 
 		\item Gleichm\"a{\ss}ige Verteilung der Studieng\"ange in jedem Team.
+		\pause 
 		\item M\"oglichst gro{\ss}e Anzahl von Teams.
 		\end{itemize}
 \end{frame}
@@ -78,11 +81,13 @@ Leibniz Universit\"at Hannover}
 	\frametitle{Software Projekt}
 %	\framesubtitle{Der 1. Schritt zur L\"osung}
 	Sei $n \in \mathbb{N}$ die Anzahl der Teams.
+	\pause 
 	\begin{align*}
 	\Rightarrow n|60 \text{, } n|24 \text{ und } n|24 \tag{i}\\
 	\end{align*}
+	\pause 
 	Wir suchen nach der gr\"o{\ss}ten Zahl $n$, die $(i)$ erf\"ullt.
-	
+	\pause 
 	\begin{align*}
 	\Rightarrow n = \textit{ggT}(60,24,24) = 12 \text{ Teams}\\
 	\end{align*}
@@ -95,8 +100,11 @@ Leibniz Universit\"at Hannover}
 	Es gibt 12 Teams mit jeweils  --\\
 	\begin{itemize}
 	\item 9 Studenten
+	\pause 
 	\item 5 Informatik Studenten
+	\pause 
 	\item 2 Mathematik Studenten
+	\pause 
 	\item 2 Technische-Informatik Studenten
 	\end{itemize}
 \end{frame}
@@ -105,33 +113,39 @@ Leibniz Universit\"at Hannover}
 \frametitle{Analog: Computerspiele}
 \framesubtitle{Missionsdauer}
 \vspace*{10pt}
+\pause 
 20 Stunden/50 Stunden pro Woche.\\
+\pause 
  \begin{figure}
 	\centering
 	\includegraphics[scale=0.6]{gamers}
-	\caption*{\scriptsize{Quelle: Google}}
 	\end{figure}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Problem 2: Mit dem Teufel umgehen}
     \framesubtitle{M\"oglichst wenig Kontakt}
+    \pause 
     \vspace*{10pt}
      \begin{figure}
 	\centering
 	\includegraphics[scale=0.17]{cicada}
-	\caption*{\scriptsize{Quelle: Google}}
+	\caption*{\scriptsize{Quelle: Office Space}}
 	\end{figure}
     \begin{itemize}
+    \pause 
     \item Chef macht alle 4 Stunden Pause.
+    \pause 
     \item Das eigene B\"uro alle 3 Stunden verlassen.
     \end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Teilerfremdheit von Zahlen}
+	\pause 
 \begin{itemize}
 \item Teilerfremdheit durch Vergleich der Primfaktoren ($NP$).
+\pause 
 \item Schnell Zahlen auf Teilerfremdheit pr\"ufen, ohne zu faktorisieren.
 \end{itemize}
 %Die Bestimmung der Primfaktorzerlegung einer Zahl liegt aber in NP.
@@ -139,9 +153,11 @@ Leibniz Universit\"at Hannover}
 
 \begin{frame}
 \frametitle{Von der Problemstellung abstrahieren}
+\pause 
 \begin{quote}
 		Wie kann man den \textit{g.g.T.} schnell bestimmen?
 	\end{quote}
+	\pause 
 	\begin{itemize}
 	\item Euklidischer Algorithmus
 	\item Binary GCD Algorithm von Stein
@@ -155,8 +171,11 @@ Leibniz Universit\"at Hannover}
 	\frametitle{Euklidischer Algorithmus}
     \framesubtitle{Historische Entwicklung}
     \begin{itemize}
+    \pause 
     \item  ca. 300 \textit{v.Chr.} in \textit{Buch VII -- Die Elemente} vorgestellt.
+    \pause 
     \item Wahrscheinlich nicht selbst erfunden.
+    \pause 
     \item Als geometrischen Algorithmus vorgestellt. St\"abe zerlegt.
     \end{itemize}
 \end{frame}
@@ -180,11 +199,15 @@ Leibniz Universit\"at Hannover}
 \begin{frame}
 	\frametitle{\textsc{LangsamEuklid}}
 	\underline{\textsc{LangsamEuklid}}: Gegeben $a,b\in\mathbb{N}$
+	\pause
 	\begin{algorithmic}[1]
 \While {$a\neq b$}
+	\pause
 	\State Falls $a$ gr\"o{\ss}er ist als $b, a\gets a-b$
 	\State Falls $b$ gr\"o{\ss}er ist als $a, b\gets b-a$
+	\pause
 \EndWhile
+	\pause
 	\State Gib den gemeinsamen Wert der Zahlen aus
 \end{algorithmic}
 \end{frame}
@@ -224,12 +247,12 @@ Leibniz Universit\"at Hannover}
 	\framesubtitle{Beispiel}
 	Beispiel: $a=24, b=9$:\\
 	\vspace{5pt}
-	\begin{tabular}{|c|c|c|} \hline
-	Iteration Nr.& a & b \\ \hline
-	 & 24 & 9 \\ \hline
-	1 & 15 & 9 \\ \hline
-	2 & 6 & 9 \\ \hline
-	3 & 6 & 3 \\ \hline
+	\begin{tabular}{|c|c|c|} \hline 
+	Iteration Nr.& a & b \\ \hline 
+	& 24 & 9 \pause \\ \hline
+	1 & 15 & 9 \pause \\ \hline
+	2 & 6 & 9 \pause \\ \hline
+	3 & 6 & 3 \pause \\ \hline
 	4 & \textbf{3} & \textbf{3} \\ \hline \hline
 	\end{tabular}\\ \vspace{5pt}
 	$\therefore$ der \textit{g.g.T.} von 24 und 9 ist 3.
@@ -239,9 +262,12 @@ Leibniz Universit\"at Hannover}
 	\frametitle{\textsc{LangsamEuklid}}
 	\framesubtitle{Endlichkeit}
 	\begin{itemize}
+	\pause 
 	\item Die Zahlen bleiben positiv und ganzzahlig beim Subtraktionsschritt.
+	\pause 
 	\item Eine Variable wird in jeder Iteration um mindestens 1 
 verringert.
+\pause 
 	\item D.h. der Algorithmus terminiert nach maximal $a+b$ Durchl\"aufen.
 	\end{itemize}
 \end{frame}
@@ -250,6 +276,7 @@ verringert.
 	\frametitle{\textsc{LangsamEuklid}}
 	\framesubtitle{Korrektheit}
 	\begin{itemize}
+	\pause 
 	\item \textit{g.g.T.}$(a,b)$ = \textit{g.g.T.}$(a-b,b)$
 	\item \textit{g.g.T.}$(a,a)$ = $a$
 	\end{itemize}
@@ -258,8 +285,10 @@ verringert.
 \begin{frame}
 	\frametitle{\textsc{LangsamEuklid}}
 	\framesubtitle{Verbesserungsvorschl\"age}
+	\pause
 	\begin{itemize}
 	\item $(1069,2) \rightarrow (1067,2) \rightarrow \dots (3,2) \rightarrow (1,2) \rightarrow (1,1)$
+	\pause
 	\item In den meisten Iterationen braucht man nicht $a>b$ \"uberpr\"ufen.
 	\end{itemize}
 \end{frame}
@@ -269,10 +298,14 @@ verringert.
 	\frametitle{\textsc{Euklid}}
 
 \underline{\textsc{Euklid}}: Gegeben $a,b\in\mathbb{N}$
+\pause 
 	\begin{algorithmic}[1]
 		\While {$b>0$}
+		\pause 
 		\State berechne $q,r$ mit $a=q\cdot b+r$, wobei $0\leq r < b$
+		\pause 
 		\State $a\gets b, b\gets r$
+		\pause 
 		\EndWhile
 		\State \textbf{return} $a$
 	\end{algorithmic}	
@@ -314,12 +347,12 @@ verringert.
 \begin{frame}
 \frametitle{\textsc{Euklid}}
 \framesubtitle{Beispiel}
-
+\pause
 \begin{tabular}{|c|c|c|} \hline
 	Iteration Nr.& a & b \\ \hline
-	 & 1069 & 2 \\ \hline
-	1 & 2 & 1 \\ \hline
-	2 & 1 & \textbf{0}\\ \hline \hline
+	& 1069 & 2 \pause \\ \hline
+	1 & 2 & 1 \pause \\ \hline
+	2 & 1 & \textbf{0} \pause \\ \hline \hline
 	\end{tabular}\\ \vspace{5pt}
 	$\therefore$ der \textit{g.g.T.} von 1069 und 2 ist 1.
 
@@ -330,11 +363,13 @@ verringert.
 \begin{frame}
 	\frametitle{Laufzeitanalyse}
 	\framesubtitle{\textsc{Euklid vs. LangsamEuklid}}
-	Sei ohne Einschr\"ankung $a>b$.\\ Im ersten Durchlauf gilt --
+	Sei ohne Einschr\"ankung $a>b$.\pause \\ Im ersten Durchlauf gilt --
 	
 	\begin{equation}a = q \cdot b + r \text{, mit } r < b
 	\end{equation}
+	\pause 
 	 Au{\ss}erdem gilt -- \\ \begin{equation}a \geq b + r \end{equation} \\
+	 \pause 
 	 Aus $(1), (2)$ folgt $$r < \frac{a}{2}$$ \\
 \end{frame}	
 \begin{frame}
@@ -342,8 +377,11 @@ verringert.
 	\framesubtitle{\textsc{Euklid vs. LangsamEuklid}}
 	\begin{itemize}
 	\item $a_{2}, b_{2} < \cfrac{a}{2}$ \vspace*{10pt}
+	\pause 
 	\item Nach $2 \cdot k$ Iterationen sind die Variablen h\"ochstens so gro{\ss} wie $\cfrac{a}{2^k}$ \vspace{15pt} .	
+	\pause 
 	\item $k \leq \log_{2}a$
+	\pause 
 	\item $2\cdot \log_{2}a$ besser als $a+b$
 	\end{itemize}
 \end{frame}
@@ -351,7 +389,7 @@ verringert.
 	\begin{frame}
 	\frametitle{Worst-Case}
 	\framesubtitle{\textsc{Euklid}}
-
+\pause
 	Betrachte die Fibonacci-Zahlen --
 	\begin{align*}
  f_{n+1} &= 1 \cdot f_{n} + f_{n-1} \\
@@ -361,18 +399,28 @@ verringert.
  f_{1} &= 1
 \end{align*}
 \end{frame}	
+\begin{frame}
+\frametitle{Definition}
+\pause
+\begin{itemize}
+	\item Sei $T(a,b)$ die Anzahl der Durchl\"aufe von \textsc{Euklid}$(a,b)$.
+	\pause
+	\item z.B. $T(1069,2) = 3$
+\end{itemize}
 
+\end{frame}
 \begin{frame}
 	\frametitle{Durchschnittslaufzeit}
 	\framesubtitle{\textsc{Euklid}}
+	\pause
 	Wenn $b$ feststeht und $a$ \"uber alle nat\"urlichen Zahlen variiert, wieviele Durchl\"aufe gibt es im Schnitt?\vspace{10pt}
+	\pause
 	\begin{quote}
 	Sei $T_{b}$ diese durchschnittliche Anzahl.
 	\end{quote}
 	\end{frame}
 \begin{frame}
 \frametitle{$T_b$ berechnen}
- Nach der ersten Iteration ist immer nur der Divisionsrest relevant.\vspace*{10pt}
  \begin{center}
  \begin{tabular}{|c|c|} \hline
  $T(3,5) = 4$ & $T(718,5) = 4$  \\ \hline
@@ -384,6 +432,8 @@ verringert.
 	$2=1\cdot 1 + 0$ & $2=1\cdot 1 + 0$ \\ \hline
 	 \end{tabular}
 	  \end{center}
+	  \pause
+	   Nach der ersten Iteration ist immer nur der Divisionsrest relevant.
 \end{frame}
 \begin{frame}
 \frametitle{$T_b$ berechnen}
@@ -393,7 +443,9 @@ verringert.
 \begin{frame}	
 		\frametitle{Durchschnittslaufzeit}
 	\framesubtitle{\textsc{Euklid} : Beispiel $T_5$}
+	\pause
 $$T_5 = \frac{1}{5}\cdot (T(1,5) + T(2,5) \dots +T(5,5))$$	
+\pause
 	\begin{itemize}
 	\item $T(1,5) = 2$
 	\setcounter{equation}{0}
@@ -401,7 +453,7 @@ $$T_5 = \frac{1}{5}\cdot (T(1,5) + T(2,5) \dots +T(5,5))$$
 	1&=0\cdot 5 + 1	\\
 	5&=5\cdot 1 + 0
 	\end{align}
-	
+	\pause
 	\setcounter{equation}{0}
 	\item $T(2,5) = 3$
 	\begin{align}
@@ -419,9 +471,10 @@ $$T_5 = \frac{1}{5}\cdot (T(1,5) + T(2,5) \dots +T(5,5))$$
 	\framesubtitle{\textsc{Euklid} : Beispiel $T_5$}
 	Analog-
 	\begin{itemize}
-	\item $T(3,5) = T(8,5) = \dots = 4$
+	\item $T(3,5) = T(8,5) = \dots = 4$*
 	\item $T(4,5) = T(9,5) = \dots = 3$
 	\item $T(5,5) = T(10,5) = \dots = 1$
+	\pause
 	\end{itemize}
 	\vspace{20pt}
 	 $$\Rightarrow T_5 = \frac{2+3+4+3+1}{5} = 2.6\text{ Iterationen}$$
@@ -430,14 +483,17 @@ $$T_5 = \frac{1}{5}\cdot (T(1,5) + T(2,5) \dots +T(5,5))$$
 	\begin{frame}	
 		\frametitle{Durchschnittslaufzeit}
 	\framesubtitle{\textsc{Euklid} : Absch\"atzung von $T_b$}
+	\pause
 	F\"ur gro{\ss}e $b \in \mathbb{N}$ gilt
 	\begin{itemize}
 	\item Nach der ersten Iteration von $T(k,b)$ bleiben ungef\"ahr $T_{k}$ Iterationen.
+	\pause
 	\begin{align*}
 	k&=0\cdot b + k\\
 	b&=q_{2}\cdot k + r_2\\
 	&\vdots
 \end{align*}		
+\pause
 	\item $T_b \approx 1 + \frac{1}{b} (T_1 + T_2 \dots + T_{b})$
 	\end{itemize}
 \end{frame}		
@@ -446,6 +502,7 @@ $$T_5 = \frac{1}{5}\cdot (T(1,5) + T(2,5) \dots +T(5,5))$$
 \frametitle{Durchschnittslaufzeit}
 \framesubtitle{\textsc{Euklid} : Absch\"atzung von $T_b$}
 $$ \Rightarrow T_b \approx H_b = \ln b + O(1)$$
+\pause
  \begin{center}
  \begin{tabular}{|c|c|} \hline
  $T_{100} = 4.56$ & $H_{100} \approx 5.18$ \\ \hline
