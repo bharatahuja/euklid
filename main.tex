@@ -119,6 +119,7 @@ Leibniz Universit\"at Hannover}
  \begin{figure}
 	\centering
 	\includegraphics[scale=0.6]{gamers}
+	\caption*{\scriptsize{Quelle: blog.wirebot.com}}
 	\end{figure}
 \end{frame}
 
@@ -145,9 +146,11 @@ Leibniz Universit\"at Hannover}
 	\pause 
 \begin{itemize}
 \item Teilerfremdheit durch Vergleich der Primfaktoren ($NP$).
-\pause 
+\pause
 \item Schnell Zahlen auf Teilerfremdheit pr\"ufen, ohne zu faktorisieren.
 \end{itemize}
+\pause 
+$$ggT(a,b) = \prod_{i \in \mathbb{N}} p_{i}^{min(a_i,b_i)}$$ wobei $p_{i} \in \mathbb{P}$.
 %Die Bestimmung der Primfaktorzerlegung einer Zahl liegt aber in NP.
 \end{frame}
 
@@ -155,7 +158,7 @@ Leibniz Universit\"at Hannover}
 \frametitle{Von der Problemstellung abstrahieren}
 \pause 
 \begin{quote}
-		Wie kann man den \textit{g.g.T.} schnell bestimmen?
+		Wie kann man schnell den \textit{g.g.T.} bestimmen?
 	\end{quote}
 	\pause 
 	\begin{itemize}
@@ -203,8 +206,8 @@ Leibniz Universit\"at Hannover}
 	\begin{algorithmic}[1]
 \While {$a\neq b$}
 	\pause
-	\State Falls $a$ gr\"o{\ss}er ist als $b, a\gets a-b$
-	\State Falls $b$ gr\"o{\ss}er ist als $a, b\gets b-a$
+	\State Falls $a$ gr\"o{\ss}er ist als $b$, $a\gets a-b$
+	\State Falls $b$ gr\"o{\ss}er ist als $a$, $b\gets b-a$
 	\pause
 \EndWhile
 	\pause
@@ -249,13 +252,13 @@ Leibniz Universit\"at Hannover}
 	\vspace{5pt}
 	\begin{tabular}{|c|c|c|} \hline 
 	Iteration Nr.& a & b \\ \hline 
-	& 24 & 9 \pause \\ \hline
-	1 & 15 & 9 \pause \\ \hline
-	2 & 6 & 9 \pause \\ \hline
-	3 & 6 & 3 \pause \\ \hline
-	4 & \textbf{3} & \textbf{3} \\ \hline \hline
+	& 24 & 9  \\ 
+	1\pause & 15 & 9 \\ 
+	2\pause & 6 & 9  \\ 
+	3\pause & 6 & 3  \\ 
+	4\pause & \textbf{3} & \textbf{3} \\ \hline
 	\end{tabular}\\ \vspace{5pt}
-	$\therefore$ der \textit{g.g.T.} von 24 und 9 ist 3.
+	$\Rightarrow$ der \textit{g.g.T.} von 24 und 9 ist 3.
 \end{frame}
 
 \begin{frame}
@@ -350,11 +353,11 @@ verringert.
 \pause
 \begin{tabular}{|c|c|c|} \hline
 	Iteration Nr.& a & b \\ \hline
-	& 1069 & 2 \pause \\ \hline
-	1 & 2 & 1 \pause \\ \hline
-	2 & 1 & \textbf{0} \pause \\ \hline \hline
+	& 1069 & 2  \\
+	1\pause & 2 & 1 \\
+	2\pause & 1 & \textbf{0} \\ \hline
 	\end{tabular}\\ \vspace{5pt}
-	$\therefore$ der \textit{g.g.T.} von 1069 und 2 ist 1.
+	$\Rightarrow$ der \textit{g.g.T.} von 1069 und 2 ist 1.
 
 \end{frame}
 
@@ -437,7 +440,7 @@ verringert.
 \end{frame}
 \begin{frame}
 \frametitle{$T_b$ berechnen}
-	$$\therefore T_{b} = \frac{1}{b} \sum_{0 < k\leq b} T(k,b)$$
+	$$\Rightarrow T_{b} = \frac{1}{b} \sum_{0 < k\leq b} T(k,b)$$
 	\end{frame}
 
 \begin{frame}	
@@ -505,12 +508,11 @@ $$ \Rightarrow T_b \approx H_b = \ln b + O(1)$$
 \pause
  \begin{center}
  \begin{tabular}{|c|c|} \hline
- $T_{100} = 4.56$ & $H_{100} \approx 5.18$ \\ \hline
- $T_{1000} = 6.422$ & $H_{1000} \approx 7.49$ \\
-  \hline
- $T_{10^6} = 12.2$ & $H_{10^6} \approx 14.4$ \\ \hline
-  $T_{10^8} = 16.07$ & $H_{10^8} \approx 18.99$ \\ \hline
-    $T_{10^9} = 18.01$ & $H_{10^9} \approx 21.3$ \\ \hline
+ $T_{100} \approx 4.56$ & $H_{100} \approx 5.18$ \\ 
+ $T_{1000} \approx 6.42$ & $H_{1000} \approx 7.49$ \\
+ $T_{10^6} \approx 12.2$ & $H_{10^6} \approx 14.4$ \\ 
+  $T_{10^8} \approx 16.07$ & $H_{10^8} \approx 18.99$ \\ 
+    $T_{10^9} \approx 18.01$ & $H_{10^9} \approx 21.3$ \\ \hline
   
 	 \end{tabular}
 	  \end{center}
@@ -553,7 +555,7 @@ $$ \Rightarrow T_b \approx H_b = \ln b + O(1)$$
 &= 1 + \frac{1}{n+1}(n\cdot (S_n - 1) + S_n)\\
 	&\Rightarrow S_{n+1}= S_n + \frac{1}{n+1}
 \end{align*}
-$$\therefore S_n = H_n = 1 + \frac{1}{2} + \dots +\frac{1}{n}$$ $$ \Rightarrow T_b \approx \ln b + O(1)$$
+$$\Rightarrow S_n = H_n = 1 + \frac{1}{2} + \dots +\frac{1}{n}$$ $$ \Rightarrow T_b \approx \ln b + O(1)$$
 
 \end{frame}
 
