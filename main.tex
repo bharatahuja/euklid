@@ -489,7 +489,7 @@ $$T_5 = \frac{1}{5}\cdot (T(1,5) + T(2,5) \dots +T(5,5))$$
 	\pause
 	F\"ur gro{\ss}e $b \in \mathbb{N}$ gilt
 	\begin{itemize}
-	\item Nach der ersten Iteration von $T(k,b)$ bleiben ungef\"ahr $T_{k}$ Iterationen.
+	\item Nach der ersten Iteration von $\textsc{Euklid}(k,b)$ bleiben noch ungef\"ahr $T_{k}$ Iterationen.
 	\pause
 	\begin{align*}
 	k&=0\cdot b + k\\
@@ -517,6 +517,14 @@ $$ \Rightarrow T_b \approx H_b = \ln b + O(1)$$
 	 \end{tabular}
 	  \end{center}
 
+\end{frame}
+
+\begin{frame}
+	\begin{figure}
+	\centering
+	\includegraphics[scale=0.42]{graph}
+	\caption*{\scriptsize{X: ln(b), Y: Anzahl Durchl\"aufe}}
+	\end{figure}
 \end{frame}
 
 \begin{frame}
